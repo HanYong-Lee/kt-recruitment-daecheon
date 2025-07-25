@@ -46,7 +46,7 @@
       cursor: pointer;
       transition: all 0.2s ease-in-out;
     }
-    nav button:hover {
+    nav button.active {
       background-color: #007DE5;
       color: white;
     }
@@ -80,19 +80,72 @@
   </header>
 
   <nav>
-    <button onclick="switchLang('ko')">한국어</button>
-    <button onclick="switchLang('vi')">Tiếng Việt</button>
-    <button onclick="switchLang('id')">Bahasa Indonesia</button>
-    <button onclick="switchLang('en')">English</button>
+    <button onclick="switchLang('ko')" id="btn-ko">한국어</button>
+    <button onclick="switchLang('vi')" id="btn-vi">Tiếng Việt</button>
+    <button onclick="switchLang('id')" id="btn-id">Bahasa Indonesia</button>
+    <button onclick="switchLang('en')" id="btn-en">English</button>
   </nav>
 
-  <!-- Sections omitted here for brevity (see prior block for full content) -->
+  <section id="ko" class="lang active">
+    <h2>📢 ㈜케이티엠앤에스 영업사원 채용 공고</h2>
+    <p>KT플라자 대천점과 함께 성장할 외국인 인재를 기다립니다!</p>
+    <p><strong>모집 부문:</strong> KT플라자 대천점 직영 영업사원 (외국어 특화 인력)</p>
+    <p><strong>1. 지원 자격요건:</strong> 베트남어 또는 인도네시아어 회화 가능자 (1개 언어 이상), TOPIK 4급 이상, 외국인: F2/F3/F5/F6 비자, 귀화자: 자국 고등학교 이상 졸업증명서</p>
+    <p><strong>2. 고용 형태:</strong> 외국인: 1년 계약직(연장 가능), 귀화자: 정규직(수습 3개월)</p>
+    <p><strong>3. 주요 업무:</strong> KT 통신상품 판매, 고객 응대 및 CS, 외국인 고객 맞춤 서비스</p>
+    <p><strong>4. 근무 조건:</strong> 주 5일, 10:00~20:00</p>
+    <p><strong>5. 급여:</strong> 연봉 약 2,900만원 + 성과급</p>
+    <p><strong>6. 우대:</strong> 영어 회화 가능자, OA 활용 능숙자, 통신영업 관심자</p>
+    <p><strong>7. 근무지:</strong> 충남 보령시 상설시장길 29 (KT플라자 대천점)</p>
+    <p><strong>8. 채용절차:</strong> 서류접수 → 면접 → 최종합격 → 입사</p>
+    <p><strong>문의:</strong> 042-XXX-XXXX (한국어), 이메일: recruit@ktmns.com</p>
+  </section>
+
+  <section id="vi" class="lang">
+    <h2>🇻🇳 [Tiếng Việt] Thông Báo Tuyển Dụng – Nhân viên bán hàng tại KT Plaza Daecheon</h2>
+    <p><strong>Vị trí:</strong> Nhân viên bán hàng KT Plaza – Daecheon</p>
+    <p><strong>Yêu cầu:</strong> Nói tiếng Việt hoặc Indonesia, TOPIK 4 trở lên, visa F2~F6 hoặc đã nhập tịch</p>
+    <p><strong>Công việc:</strong> Bán điện thoại, máy tính bảng, đồng hồ, TV, internet, phục vụ khách nước ngoài</p>
+    <p><strong>Giờ làm:</strong> 10:00~20:00, 5 ngày/tuần</p>
+    <p><strong>Lương:</strong> 29 triệu KRW/năm + thưởng</p>
+    <p><strong>Hồ sơ:</strong> Gửi CV + thư giới thiệu (bằng tiếng Hàn), liên hệ 010-9388-0429</p>
+  </section>
+
+  <section id="id" class="lang">
+    <h2>🇮🇩 [Bahasa Indonesia] Lowongan Kerja – Staf Penjualan di KT Plaza Daecheon</h2>
+    <p><strong>Posisi:</strong> Staf Penjualan KT Plaza – Daecheon</p>
+    <p><strong>Persyaratan:</strong> Bisa Bahasa Indonesia/Vietnam, TOPIK ≥ 4, visa F2~F6 atau naturalisasi</p>
+    <p><strong>Pekerjaan:</strong> Menjual produk KT, CS langsung, melayani pelanggan asing</p>
+    <p><strong>Jam kerja:</strong> 10:00~20:00, 5 hari kerja/minggu</p>
+    <p><strong>Gaji:</strong> 29 juta KRW/tahun + bonus</p>
+    <p><strong>Pengajuan:</strong> Kirim CV dalam Bahasa Korea, kontak 010-9388-0429</p>
+  </section>
+
+  <section id="en" class="lang">
+    <h2>🇺🇸 [English] Job Opening – Sales Staff at KT Plaza Daecheon</h2>
+    <p><strong>Position:</strong> Sales Staff – KT Plaza Daecheon Branch</p>
+    <p><strong>Requirements:</strong> Speak Vietnamese or Indonesian, TOPIK ≥ 4, F2~F6 visa or naturalized</p>
+    <p><strong>Responsibilities:</strong> Sell KT products, direct customer service, support foreign customers</p>
+    <p><strong>Working hours:</strong> 10:00~20:00, 5-day work week</p>
+    <p><strong>Salary:</strong> KRW 29M/year + performance bonus</p>
+    <p><strong>Apply:</strong> Send resume & intro (in Korean), Contact 010-9388-0429</p>
+  </section>
 
   <script>
     function switchLang(lang) {
       document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
       document.getElementById(lang).classList.add('active');
+      document.getElementById('btn-' + lang).classList.add('active');
     }
+
+    window.onload = function () {
+      const userLang = navigator.language || navigator.userLanguage;
+      if (userLang.startsWith('ko')) switchLang('ko');
+      else if (userLang.startsWith('vi')) switchLang('vi');
+      else if (userLang.startsWith('id')) switchLang('id');
+      else switchLang('en');
+    };
   </script>
 </body>
 </html>
